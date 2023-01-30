@@ -1,24 +1,18 @@
 import logo from './logo.svg';
 import './App.css';
+import { Routes, Route, Navigate, useNavigate, useParams, useLocation } from "react-router-dom";
+import React, { useState, createContext, useEffect } from "react";
+import Home from "./pages/Home";
+export const AppContext = createContext();
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppContext.Provider value={'hi'}>
+      <Routes>
+        <Route index element={<Navigate replace to="/Home"/>}></Route>
+        <Route path="/Home" element={<Home/>}></Route>
+      </Routes>
+    </AppContext.Provider>
   );
 }
 
