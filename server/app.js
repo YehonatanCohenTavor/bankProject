@@ -26,5 +26,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/transactions', transactionsRouter);
 app.use('/credits', creditsRouter);
+app.use('/customers', customersRouter);
+app.use('/accounts', accountsRouter);
 
 module.exports = app;
