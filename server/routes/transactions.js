@@ -3,11 +3,20 @@ var router = express.Router();
 const database = require('../connection');
 
 
-/* GET users listing. */
 router.get('/', function (req, res, next) {
-  res.send('respond with a resource');
+  database.query(`SELECT * FROM transaction`, (err, result) => {
+    if (err) res.status(503).json(err);
+    res.status(200).json(result);
+  })
 });
 
+router.get('/:user_id', function (req, res, next) {
+  const user_id = req.params.user_id;
+  database.query(`SELECT * FROM transaction WHERE sender_account_id = ${user_id} OR reciever_account_id= ${user_id}`, (err, result) => {
+    if (err) res.status(503).json(err);
+    res.status(200).json(result);
+  })
+})
 router.post('/', function (req, res, next) {
 
   const { sender_account_id, reciever_account_id, credit_id, amount, description } = req.body;
