@@ -7,6 +7,11 @@ const database = require('./connection');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+const transactionsRouter = require('./routes/transactions');
+const creditsRouter = require('./routes/credits');
+const customersRouter = require('./routes/customers');
+const accountsRouter = require('./routes/accounts');
+
 
 var app = express();
 
@@ -19,5 +24,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/transactions', transactionsRouter);
 
 module.exports = app;
