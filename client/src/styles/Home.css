@@ -1,0 +1,175 @@
+#root {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    background-size: cover;
+    background: url(https://img.freepik.com/free-vector/blue-abstract-gradient-wave-vector-background_53876-111548.jpg?w=2000) center center no-repeat fixed;
+    font-family: 'BIZ UDPMincho', serif;
+}
+
+.HomePage .slider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.HomePage .slider-content {
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    font-size: 1.5em;
+}
+
+.HomePage .slider-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 50px;
+    width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.HomePage .slider-arrow i {
+    font-size: 2em;
+    color: #333;
+}
+
+.HomePage .prev {
+    left: 0;
+}
+
+.HomePage .next {
+    right: 0;
+}
+
+.HomePage .slider img {
+    width: 15vw;
+    height: auto;
+}
+
+.HomePage>h1 {
+    margin-top: 17vh;
+    font-size: 6em;
+    color: #000;
+    text-align: center;
+    position: absolute;
+    z-index: 2;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #62c0f7;
+}
+
+
+.HomePage>.buttonsForms {
+    margin-top: 10vh;
+    position: absolute;
+    z-index: 2;
+    left: 15%;
+    top: 45%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background: linear-gradient(90deg, rgb(68, 59, 226) 0%, rgb(84, 84, 224) 35%, rgb(149, 166, 235) 100%);
+    border-radius: 8px;
+    padding: 10px;
+
+}
+
+.HomePage>.buttonsForms h3{
+    font-size: 2em;
+    color: rgb(7, 26, 48);
+    text-decoration: underline;
+}
+
+.HomePage>.buttonsForms button{
+    margin: 2vw;
+    padding: 1.3vw 2.5vw;
+    background-color: #3a90ec;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.HomePage>.buttonsForms button:hover {
+    background-color: #0069d9;
+    box-shadow: 0px 0px 10px #007bff;
+}
+
+.HomePage .video-continer {
+    position: relative;
+    width: 100%;
+    height: auto;
+    margin-bottom: 10vh;
+}
+
+.HomePage video {
+    width: 100%;
+    height: auto;
+}
+
+.HomePage section {
+    font-size: 1.2em;
+    line-height: 1.5;
+}
+
+.info {
+    margin: 2vw;
+}
+
+.HomePage ul {
+    list-style-type: circle;
+}
+
+.HomePage ul li {
+    margin-bottom: 1vh;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+caption h2 {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 10px;
+    text-decoration: underline;
+    margin-bottom: 5vh;
+}
+
+thead th {
+    background-color: #f2f2f2;
+    text-align: left;
+    padding: 10px;
+}
+
+tbody td {
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    padding: 2vh;
+    font-size: 1.2em;
+    font-weight: 300;
+}
+
+
+tbody tr:hover {
+    background-color: #c0dff9;
+}
+
+.HomePage footer {
+    width: 100%;
+    height: auto;
+    background-color: #bed1e0;
+    float: left;
+}

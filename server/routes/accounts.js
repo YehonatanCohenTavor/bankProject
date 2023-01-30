@@ -5,7 +5,7 @@ const database = require('../connection');
 router.get('/', function (req, res) {
     const sql = "SELECT * FROM account";
     database.query(sql, (err, result) => {
-        if (err) res.status(503).send(err);
+        if (err) res.status(503).json(err);
         res.status(200).json(result);
     })
 });
@@ -14,7 +14,7 @@ router.get('/:account_id', function (req, res) {
     const account_id = req.params.account_id;
     const sql = `SELECT * FROM account WHERE account_id = ${account_id}`;
     database.query(sql, (err, result) => {
-        if (err) res.status(503).send(err);
+        if (err) res.status(503).json(err);
         res.status(200).json(result);
     })
 });
@@ -23,7 +23,7 @@ router.post('/', (req, res) => {
     const { user_id, type, name } = req.body;
     const sql = `INSERT INTO account (user_id,balance,type,name) VALUES (${user_id},0,'${type}','${name}');`;
     database.query(sql, (err, result) => {
-        if (err) res.status(503).send(err);
+        if (err) res.status(503).json(err);
         res.status(200).json(result.insertId);
     })
 });
@@ -32,7 +32,7 @@ router.delete('/', (req, res) => {
     const account_id = req.body.account_id;
     const sql = `UPDATE account SET deleted = 1 WHERE account_id = ${account_id};`;
     database.query(sql, (err, result) => {
-        if (err) res.status(503).send(err);
+        if (err) res.status(503).json(err);
         res.status(200).json(result);
     })
 });
