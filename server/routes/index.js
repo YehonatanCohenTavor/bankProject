@@ -3,13 +3,24 @@ var router = express.Router();
 const validateLogin = require('../middlewares/loginValidation');
 const database = require('../connection');
 const validateForm = require('../middlewares/validateForm');
+const jwt = require('jsonwebtoken');
 
-/* GET home page. */
+
+
+
 router.post('/login', validateLogin, function (req, res, next) {
-  const sql = `SELECT user_id FROM user WHERE username='${req.body.username}'`;
+  const sql = `SELECT user.user_id,permission_id,token,expiration_date FROM user LEFT JOIN cookie ON user.user_id = cookie.user_id WHERE username='${req.body.username}'`;
   database.query(sql, (err, result) => {
+    let token = jwt.sign({ user_id: result[0].user_id, permission: result[0].permission_id }, result[0].user_id.toString());
+    if (result[0].token === null) {
+      database.query(`INSERT INTO cookie (user_id,token) VALUES (${result[0].user_id},'${token}')`, (error, results) => {
+        if (err) return res.status(503).json(err);
+        return res.status(200).json({ token: token, expiration_date: new Date().toLocaleDateString(), user_id: result[0].user_id });
+      })
+      return;
+    }
     if (err) return res.status(503).json(err);
-    res.status(200).json(result[0].user_id);
+    res.status(200).json({ existToken: result[0].token, user_id: result[0].user_id, expiration_date: result[0].expiration_date });
   })
 });
 

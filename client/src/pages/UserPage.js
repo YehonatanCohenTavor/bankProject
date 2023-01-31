@@ -25,10 +25,12 @@ function UserPage() {
     // }
 
     const getTransactions = async (account) => {
+        let mosh = 'itay'
         console.log(account);
         console.log(`http://localhost:8000/transactions/${account.account_id}/limit`);
         const res = await fetch(`http://localhost:8000/transactions/${account.account_id}/limit`);
         const ans = await res.json();
+        if(ans.length === 0) return alert("No transactions found");
         const response1 = await fetch(`http://localhost:8000/credits/${user_id}`);
         const ans1 = await response1.json();
         for (let key of ans) {

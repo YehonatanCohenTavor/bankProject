@@ -1,12 +1,18 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState,useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../login.css';
+import { AppContext } from '../App';
+
 
 function Login() {
+    const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const inputRef = useRef(null);
+    const { logIn } = useContext(AppContext);
 
-    const handleSubmit = async(e) => {
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
         let res = await fetch(`http://localhost:8000/login`, {
             method: 'POST',
@@ -15,22 +21,22 @@ function Login() {
         });
         if (res.ok) {
             let data = await res.json();
-            sessionStorage.setItem('onlineUser', JSON.stringify(data))
+            logIn(data);
         } else inputRef.current.focus();
     }
 
-    return ( 
+    return (
         <div id='loginContainer'>
             <form onSubmit={handleSubmit} id='loginForm'>
                 <h2>Login</h2>
                 <div className='inputDiv'>
-                    <label>Username: 
-                        <input ref={inputRef} value={username} onChange={e=>setUsername(e.target.value)} required></input>
+                    <label>Username:
+                        <input ref={inputRef} value={username} onChange={e => setUsername(e.target.value)} required></input>
                     </label>
                 </div>
                 <div className='inputDiv'>
-                    <label>Password: 
-                        <input type="password" value={password} onChange={e=>setPassword(e.target.value)} required></input>
+                    <label>Password:
+                        <input type="password" value={password} onChange={e => setPassword(e.target.value)} required></input>
                     </label>
                 </div>
                 <div>
@@ -38,7 +44,7 @@ function Login() {
                 </div>
             </form>
         </div>
-     );
+    );
 }
 
 export default Login;
