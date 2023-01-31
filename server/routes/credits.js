@@ -21,6 +21,16 @@ router.get('/:user_id/:credit_id', function (req, res) {
     });
 });
 
+// router.get('/:user_id/limit', function (req, res) {
+//     const user_id = req.params.user_id;
+//     const limit = req.query.limit;
+//     const sql = `SELECT * FROM credit WHERE user_id = ${user_id} AND credit_id = ${credit_id} ORDER BY transaction_id DESC LIMIT ${limit ? limit : 5}`;
+//     database.query(sql, (err, result) => {
+//         if (err) return res.status(503).json(err);
+//         res.status(200).json(result);
+//     });
+// });
+
 router.post('/', function (req, res) {
     const { account_id, user_id, credit_number, cvv, expiration, company } = req.body;
     const sql = `INSERT INTO credit (account_id,user_id,credit_number,cvv,expiration,company) VALUES (${account_id},${user_id},'${credit_number}','${cvv}','${expiration}','${company}')`;

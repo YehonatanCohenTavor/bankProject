@@ -1,0 +1,55 @@
+.UserPage ul {
+    list-style-type: circle;
+}
+
+.UserPage ul li {
+    margin-bottom: 1vh;
+}
+
+.UserPage table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.UserPage caption h2 {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 10px;
+    text-decoration: underline;
+    margin-bottom: 5vh;
+}
+
+.UserPage thead th {
+    background-color: #f2f2f2;
+    text-align: left;
+    padding: 10px;
+}
+
+.UserPage tbody td {
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    padding: 2vh;
+    font-size: 1.2em;
+    font-weight: 300;
+}
+
+
+.UserPage tbody tr:hover {
+    background-color: #c0dff9;
+}
+
+.UserPage footer {
+    width: 100%;
+    height: auto;
+    background-color: #bed1e0;
+    float: left;
+}
+
+.UserPage {
+    text-align: center;
+}
+
+.UserPage>div {
+    margin: 10vh;
+}

@@ -8,6 +8,7 @@ import RegisterOne from './pages/RegisterOne';
 import RegisterTwo from './pages/RegisterTwo';
 import UserPage from './pages/UserPage';
 import AdminPage from './pages/adminPage';
+import NavBar from './pages/components/Navbar';
 export const AppContext = createContext();
 
 
@@ -37,9 +38,11 @@ function App() {
   return (
     <AppContext.Provider value={'hi'}>
       <Routes>
-        <Route index element={<Navigate replace to="/Home"  />}></Route>
-        <Route path="/Home" element={<Home  />}></Route>
-        <Route path='/UserPage/:user_id' element={<UserPage />}></Route>
+        <Route index element={<Navigate replace to="/Home"/>}></Route>
+        <Route path="/Home" element={<Home />}></Route>
+        <Route path='/UserPage/:user_id' element={<NavBar />}>
+          <Route index element={<UserPage />}></Route>
+        </Route>
         <Route path='/AdminPage/:user_id' element={<AdminPage />}></Route>
         <Route path="/Login" element={<Login />}></Route>
         <Route path="/Register" >

@@ -10,9 +10,9 @@ router.get('/', function (req, res) {
     })
 });
 
-router.get('/:account_id', function (req, res) {
-    const account_id = req.params.account_id;
-    const sql = `SELECT * FROM account WHERE account_id = ${account_id}`;
+router.get('/:user_id', function (req, res) {
+    const user_id = req.params.user_id;
+    const sql = `SELECT * FROM account WHERE user_id = ${user_id}`;
     database.query(sql, (err, result) => {
         if (err) res.status(503).json(err);
         res.status(200).json(result);
