@@ -26,12 +26,11 @@ function Statistics() {
 
     const options = {
         title: {
-            text: "Hilma Bank Statistics"
+            text: "Customers And Bank Accounts"
         },
         data: [
             {
-
-                type: "column",
+                type: "doughnut",
                 dataPoints: [
                     { label: "Customers", y: customerState.count },
                     { label: "Bank Accounts", y: accountState.count },
@@ -40,8 +39,10 @@ function Statistics() {
         ]
     }
     return (
-        <div>
-            <CanvasJSChart options={options} containerProps={{ width: '25%', height: '200px' }} />
+        <div className='statsContainer'>
+            <div>
+                <CanvasJSChart options={options} containerProps={{ width: '35%', height: '200px' }} />
+            </div>
         </div>
     );
 }
