@@ -15,16 +15,22 @@ router.post('/login', validateLogin, function (req, res, next) {
 
 router.post('/register', validateForm, (req, res, next) => {
   const { password, username, first_name, last_name, email, identity_number, address, birth_date, phone, branch } = req.body;
-  let sql = `INSERT INTO user (password,username,permission_id) VALUES('${password}','${username}',2)`;
-  database.query(sql, (err, result) => {
-    if (err && err.errno === 1062) return res.status(409).json('Username already exists');
-    if (err) return res.status(503).send(err);
-    sql = `INSERT INTO customer (user_id,first_name, last_name, email, identity_number, address, birth_date, phone, branch)
-                VALUES(${result.insertId},'${first_name}','${last_name}','${email}',${identity_number},'${address}','${birth_date}','${phone}','${branch}')`;
-    database.query(sql, (err1, result1) => {
-      if (err1 && err1.errno === 1062) return res.status(409).json(err1);
-      if (err1) return res.status(503).send(err1);
-      res.status(200).json(result.insertId);
+  database.beginTransaction(err => {
+    if (err) return res.status(503).json(err);
+    let sql = `INSERT INTO user (password,username,permission_id) VALUES('${password}','${username}',2)`;
+    database.query(sql, (err, result) => {
+      if (err && err.errno === 1062) return database.rollback(() => res.status(409).json('Username already exists'));
+      if (err) return database.rollback(() => res.status(503).send(err))
+      sql = `INSERT INTO customer (user_id,first_name, last_name, email, identity_number, address, birth_date, phone, branch)
+                  VALUES(${result.insertId},'${first_name}','${last_name}','${email}',${identity_number},'${address}','${birth_date}','${phone}','${branch}')`;
+      database.query(sql, (err1, result1) => {
+        if (err1 && err1.errno === 1062) return database.rollback(() => res.status(409).json(err1));
+        if (err1) return database.rollback(() => res.status(503).send(err1));
+        database.commit(err => {
+          if (err) return database.rollback(() => res.status(503).send(err));
+          res.status(200).json(result.insertId);
+        })
+      })
     })
   })
 })

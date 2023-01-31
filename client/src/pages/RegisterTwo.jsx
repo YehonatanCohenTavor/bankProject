@@ -10,13 +10,14 @@ function RegisterTwo() {
         password: '',
         repeat_password: ''
     })
+    const [error, setError] = useState('');
 
     const handleChange = ({ target }) => {
         const { name, value } = target;
         setState(prev => ({ ...prev, [name]: value }));
     }
 
-    const handleSubmit = async(e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         let errors = [];
         if (state.password.length < 2) errors.push("password");
@@ -32,14 +33,13 @@ function RegisterTwo() {
                 element[0].classList.add("error");
             })
         } else {
-            console.log({ ...location.state, ...state })
             let response = await fetch('http://localhost:8000/register', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body:JSON.stringify({...location.state,...state})
+                body: JSON.stringify({ ...location.state, ...state })
             })
             let data = await response.json();
-            console.log(data);
+            setError(data.sqlMessage);
         }
     }
 
@@ -61,6 +61,7 @@ function RegisterTwo() {
                         <input type="password" value={state.repeat_password} onChange={handleChange} name="repeat_password"></input>
                     </label>
                 </div>
+                <p className='errorP'>{error}</p>
                 <div>
                     <button type="submit">Sign up</button>
                 </div>
