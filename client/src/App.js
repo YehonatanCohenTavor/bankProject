@@ -8,6 +8,7 @@ import RegisterOne from './pages/RegisterOne';
 import RegisterTwo from './pages/RegisterTwo';
 import UserPage from './pages/UserPage';
 import AdminPage from './pages/adminPage';
+import Statistics from './pages/statistics';
 export const AppContext = createContext();
 
 
@@ -46,6 +47,7 @@ function App() {
           <Route index path="" element={<RegisterOne />}></Route>
           <Route path="next" element={<RegisterTwo />}></Route>
         </Route>
+        <Route path='/stats' element={<Statistics/>}></Route>
       </Routes>
     </AppContext.Provider>
   );

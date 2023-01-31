@@ -57,8 +57,8 @@ router.post('/', function (req, res, next) {
   });
 });
 
-router.put('/', function (req, res, next) {
-  const { transaction_id } = req.body;
+router.put('/:transaction_id', function (req, res, next) {
+  const { transaction_id } = req.params;
   database.beginTransaction(function (err) {
     if (err) {
       throw err;
@@ -81,7 +81,7 @@ router.put('/', function (req, res, next) {
               throw error;
             });
           }
-          database.query(`UPDATE transaction SET status = 'completed' WHERE transaction_id = ${transaction_id}`, function (error, results) {
+          database.query(`UPDATE transaction SET status = 'Completed' WHERE transaction_id = ${transaction_id}`, function (error, results) {
             if (error) {
               return database.rollback(function () {
                 throw error;

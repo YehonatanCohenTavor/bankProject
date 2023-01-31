@@ -6,15 +6,19 @@ function RegisterOne() {
     const navigate = useNavigate();
     const location = useLocation();
     const [state, setState] = useState({
-        first_name: location.state.first_name||'',
-        last_name: location.state.last_name||'',
-        email: location.state.email||'',
-        identity_number: location.state.identity_number||'',
-        address: location.state.address||'',
-        birth_date:location.state.birth_date|| '',
-        phone: location.state.phone||'',
-        branch:location.state.branch|| ''
+        first_name:'',
+        last_name: '',
+        email: '',
+        identity_number:'',
+        address: '',
+        birth_date: '',
+        phone: '',
+        branch: ''
     })
+
+    useEffect(() => {
+        if (location.state) setState({ ...location.state });
+    },[])
 
     const handleChange = ({ target }) => {
         const { name, value } = target;
