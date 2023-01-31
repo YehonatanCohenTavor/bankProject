@@ -22,6 +22,7 @@ function Login() {
     return ( 
         <div id='loginContainer'>
             <form onSubmit={handleSubmit} id='loginForm'>
+                <h2>Login</h2>
                 <div className='inputDiv'>
                     <label>Username: 
                         <input ref={inputRef} value={username} onChange={e=>setUsername(e.target.value)} required></input>

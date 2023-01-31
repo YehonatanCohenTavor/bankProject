@@ -7,6 +7,7 @@ import Login from './pages/Login';
 import RegisterOne from './pages/RegisterOne';
 import RegisterTwo from './pages/RegisterTwo';
 import UserPage from './pages/UserPage';
+import AdminPage from './pages/adminPage';
 export const AppContext = createContext();
 
 
@@ -39,6 +40,7 @@ function App() {
         <Route index element={<Navigate replace to="/Home"  />}></Route>
         <Route path="/Home" element={<Home  />}></Route>
         <Route path='/UserPage/:user_id' element={<UserPage />}></Route>
+        <Route path='/AdminPage/:user_id' element={<AdminPage />}></Route>
         <Route path="/Login" element={<Login />}></Route>
         <Route path="/Register" >
           <Route index path="" element={<RegisterOne />}></Route>

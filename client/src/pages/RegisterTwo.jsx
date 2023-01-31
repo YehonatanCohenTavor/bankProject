@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import '../register.css';
+import '../styles/register.css';
 
 function RegisterTwo() {
     const navigate = useNavigate();
@@ -22,7 +22,7 @@ function RegisterTwo() {
         let errors = [];
         if (state.password.length < 2) errors.push("password");
         if (state.password !== state.repeat_password) errors.push("repeat_password");
-        if (state.username < 4) errors.push("Username");
+        if (state.username < 4) errors.push("username");
         for (let key in state) {
             let element = document.getElementsByName(key);
             element[0].classList.remove("error");
@@ -39,8 +39,28 @@ function RegisterTwo() {
                 body: JSON.stringify({ ...location.state, ...state })
             })
             let data = await response.json();
-            setError(data.sqlMessage);
+            switch (data) {
+                case 'Username already exists':
+                    setError(data);
+                    break;
+                case `Duplicate entry '${location.state.email}' for key 'customer.email_UNIQUE'`:
+                    setError(`Email: ${location.state.email} is already in use.`)
+                    break;
+                case `Duplicate entry '${location.state.phone}' for key 'customer.phone_UNIQUE'`:
+                    setError(`Phone: ${location.state.phone} is already in use.`)
+                    console.log(data);
+                    break;
+                case `Duplicate entry '${location.state.identity_number}' for key 'customer.identity_number_UNIQUE'`:
+                    setError(`ID number: ${location.state.identity_number} is already linked to another user.`)
+                    break;
+                default:
+                    navigate(`/userpage/${data}`);
+            }
         }
+    }
+
+    const goBack = () => {
+        navigate('/register',{state:{...location.state}})
     }
 
     return (
@@ -63,6 +83,7 @@ function RegisterTwo() {
                 </div>
                 <p className='errorP'>{error}</p>
                 <div>
+                    <button onClick={goBack}>Back</button>
                     <button type="submit">Sign up</button>
                 </div>
             </form>

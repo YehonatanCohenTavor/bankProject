@@ -24,7 +24,7 @@ router.post('/register', validateForm, (req, res, next) => {
       sql = `INSERT INTO customer (user_id,first_name, last_name, email, identity_number, address, birth_date, phone, branch)
                   VALUES(${result.insertId},'${first_name}','${last_name}','${email}',${identity_number},'${address}','${birth_date}','${phone}','${branch}')`;
       database.query(sql, (err1, result1) => {
-        if (err1 && err1.errno === 1062) return database.rollback(() => res.status(409).json(err1));
+        if (err1 && err1.errno === 1062) return database.rollback(() => res.status(409).json(err1.sqlMessage));
         if (err1) return database.rollback(() => res.status(503).send(err1));
         database.commit(err => {
           if (err) return database.rollback(() => res.status(503).send(err));
