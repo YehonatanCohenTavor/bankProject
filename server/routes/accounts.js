@@ -21,7 +21,7 @@ router.get('/:user_id', function (req, res) {
 
 router.get('/:user_id/accounts', (req, res) => {
     const { user_id } = req.params;
-    const sql = `SELECT account_id FROM account WHERE user_id=${user_id}`;
+    const sql = `SELECT * FROM account WHERE user_id=${user_id}`;
     database.query(sql, (err, result) => {
         if (err) res.status(503).json(err);
         res.status(200).json(result);
@@ -40,7 +40,7 @@ router.post('/', (req, res) => {
     const sql = `INSERT INTO account (user_id,balance,type,name) VALUES (${user_id},0,'${type}','${name}');`;
     database.query(sql, (err, result) => {
         if (err) res.status(503).json(err);
-        res.status(200).send('Account created successfully. Current balance is 0');
+        res.status(200).json('Account created successfully. Current balance is 0');
     })
 });
 

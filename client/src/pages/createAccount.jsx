@@ -32,8 +32,11 @@ function CreateAccount() {
             .then(data => {
                 setServerResponse(data);
             })
-
-    }
+            .catch(err => {
+                console.log(err);
+                setServerResponse('An error has occured. Please try again later')
+            })
+        }
 
     return (
         <div>

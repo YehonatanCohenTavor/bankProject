@@ -35,6 +35,17 @@ router.get('/:account_id', function (req, res, next) {
   })
 })
 
+router.get(`/:user_id/sum`, (req, res) => {
+  let sql = `SELECT SUM(t1.amount)/2 as income,SUM(t2.amount)/2 as expenses FROM account 
+  JOIN transaction t1 ON account.account_id=t1.reciever_account_id
+  JOIN transaction t2 ON account.account_id=t2.sender_account_id
+  WHERE user_id=${req.params.user_id}`;
+  database.query(sql, (err, result) => {
+    if (err) res.status(503).json(err);
+    res.status(200).json(result);
+  })
+})
+
 router.post('/', function (req, res, next) {
 
   const { sender_account_id,reciever_account_id, amount, description } = req.body;
