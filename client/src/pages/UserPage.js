@@ -19,13 +19,9 @@ function UserPage() {
     let user_id = useParams();
     user_id = user_id.user_id;
     useEffect(() => {      
-        authorization(getAccounts);
-        
+        authorization(getAccounts);  
     }, []);
     
-    
-
-
     const getTransactions = async (account) => {
         console.log(`http://localhost:8000/transactions/${account.account_id}/limit`);
         const res = await fetch(`http://localhost:8000/transactions/${account.account_id}/limit`);
@@ -127,7 +123,6 @@ function UserPage() {
                 break;
         }
     }
-
 
     if (debits.length === 0 || transactions.length === 0) {
         return (
