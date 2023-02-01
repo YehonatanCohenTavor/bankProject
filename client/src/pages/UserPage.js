@@ -81,7 +81,10 @@ function UserPage () {
   }
 
   const changeAccounts = async (e) => {
-    if (e.target.value !== accountIndex){
+    console.log(e.target.value);
+    console.log(accountIndex);
+    if (e.target.value === 'Select Account') return;
+    if (+(e.target.value) !== accountIndex){
         setAccountIndex(e.target.value)
         getTransactions(accounts[+e.target.value])
     }
