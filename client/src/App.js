@@ -9,6 +9,7 @@ import RegisterTwo from './pages/RegisterTwo';
 import UserPage from './pages/UserPage';
 import AdminPage from './pages/adminPage';
 import NavBar from './pages/components/Navbar';
+import ErrorPage from './pages/components/ErrorPage';
 export const AppContext = createContext();
 
 
@@ -16,7 +17,7 @@ function App() {
   const navigate = useNavigate();
   const location = useLocation();
   const user_id = location.pathname.split("/")[2];
-  const [existsCookie, setExistsCookie] = useState(true);
+  const [existsUser, setExistsUser] = useState(false);
 
   const getCookies = (cname) => {
     let name = cname + "=";
@@ -34,46 +35,49 @@ function App() {
     return "";
   }
 
-  useEffect(() => {
-    if(user_id === undefined) {
-      return;
-    }
-    if (getCookies("onlineUser") === '' && existsCookie === false) {
-      navigate("/Home");
-    } else {
-      setExists(true);
-      if (getCookies("onlineUser") !== '') {
-        fetch(`http://localhost:8000/users/${getCookies("onlineUser")}`)
-          .then(response => response.json())
-          .then(data => {
-            navigate(`UserPage/${data.user_id}`)
-          })
+  const authorization = async (func) => {
+    const res = await fetch(`http://localhost:8000/${user_id}/authorization`, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       }
+    });
+    const data = await res.json();
+    if(data){
+      func();
+    } else {
+      navigate("/ErrorPage")
     }
-  }, [user_id]);
+  }
+
+  useEffect(() => {
+  }, []);
 
   function logIn(data) {
     if (data.token === undefined) {
+      document.cookie = `onlineUser=${data.existToken};expires=${data.expiration_date}`;
+    }
+    else {
       document.cookie = `onlineUser=${data.token};expires=${data.expiration_date}`;
-      navigate(`/UserPage/${data.user_id}`);
-    } else {
-      console.log('hiiiiii');
-      document.cookie = `onlineUser=${data.token};expires=${data.expiration_date}`;
+    }
+    if (user_id != data.user_id) {
       navigate(`/UserPage/${data.user_id}`);
     }
-    // if (user_id != data.user_id) {
-    //   navigate(`/UserPage/${user_id}`);
-    // }
   }
+
   function logOut() {
-    sessionStorage.removeItem("activeUser");
+    document.cookie = "onlineUser='';expires=Thu, 01 Jan 1970 00:00:00 GMT";
     navigate("/Home");
   }
+
   return (
-    <AppContext.Provider value={{ logIn, logOut }}>
+    <AppContext.Provider value={{ logIn, logOut, authorization }}>
       <Routes>
         <Route index element={<Navigate replace to="/Home" />}></Route>
         <Route path="/Home" element={<Home />}></Route>
+        <Route path="/ErrorPage" element={<ErrorPage />}></Route>
         <Route path='/UserPage/:user_id' element={<NavBar />}>
           <Route index element={<UserPage />}></Route>
         </Route>

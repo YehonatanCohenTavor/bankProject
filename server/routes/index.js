@@ -46,4 +46,21 @@ router.post('/register', validateForm, (req, res, next) => {
   })
 })
 
+
+router.get('/:user_id/authorization', (req, res) => {
+  const cookie = req.cookies.onlineUser;
+  const user_id = req.params.user_id;
+  const sql = `SELECT user_id FROM cookie WHERE token='${cookie}'`;
+  database.query(sql, (err, result) => {
+    jwt.verify(cookie, result[0].user_id.toString(), function (err, decoded) {
+      if (+(decoded.user_id) != user_id) {
+        return res.status(404).send(false);
+      }
+      else {
+        return res.status(200).send(true)
+      }
+    });
+  })
+});
+
 module.exports = router;

@@ -1,36 +1,36 @@
-import React, { useState, createContext, useEffect } from "react";
+import React, { useState, createContext, useEffect,useContext } from "react";
 import { Routes, Route, Navigate, useNavigate, useParams, useLocation } from "react-router-dom";
 import Loading from "./components/Loading";
 import '../styles/UserPage.css';
+import { AppContext } from "../App";
 
 function UserPage() {
-    // const [current, setCurrent] = useState(null);
+    const navigate = useNavigate();
+    const location = useLocation();
+    const user_Id = location.pathname.split("/")[2];
     const [accounts, setAccounts] = useState([]);
     const [transactions, setTransactions] = useState([]);
     const [debits, setDebits] = useState([]);
     const [accountIndex, setAccountIndex] = useState(0);
+    const { logIn, authorization } = useContext(AppContext);
 
+
+    
     let user_id = useParams();
     user_id = user_id.user_id;
-    useEffect(() => {
-        getAccounts();
+    useEffect(() => {      
+        authorization(getAccounts);
         
-        // getBalance();
     }, []);
+    
+    
 
-    // const getBalance = async () => {
-    //     const res = await fetch(`http://localhost:8000/accounts/${user_id}`);
-    //     const data = await res.json();
-    //     setCurrent(data[0].balance);
-    // }
 
     const getTransactions = async (account) => {
-        let mosh = 'itay'
-        console.log(account);
         console.log(`http://localhost:8000/transactions/${account.account_id}/limit`);
         const res = await fetch(`http://localhost:8000/transactions/${account.account_id}/limit`);
         const ans = await res.json();
-        if(ans.length === 0) return alert("No transactions found");
+        if (ans.length === 0) return alert("No transactions found");
         const response1 = await fetch(`http://localhost:8000/credits/${user_id}`);
         const ans1 = await response1.json();
         for (let key of ans) {
@@ -147,7 +147,7 @@ function UserPage() {
                 <h1>Your Transactions:</h1>
                 <select onChange={changeAccounts}>
                     <option value={null}>Select Account</option>
-                    {accounts.map((account,index) => <option key={account.account_id} value={index}>{index}</option>)}
+                    {accounts.map((account, index) => <option key={account.account_id} value={index}>{index}</option>)}
                 </select>
                 <select onChange={filterTransactions}>
                     <option value={null}>select</option>
