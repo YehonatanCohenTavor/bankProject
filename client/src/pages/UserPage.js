@@ -80,9 +80,11 @@ function UserPage () {
     setGetData(true)
   }
 
-  const changeAccounts = async e => {
-    setAccountIndex(e.target.value)
-    getTransactions(accounts[+e.target.value])
+  const changeAccounts = async (e) => {
+    if (e.target.value !== accountIndex){
+        setAccountIndex(e.target.value)
+        getTransactions(accounts[+e.target.value])
+    }
   }
 
   const filterTransactions = async e => {
