@@ -135,7 +135,7 @@ function UserPage() {
     return (
         <div className="UserPage">
             <div className="current-container">
-                <h1>Your Current:</h1>
+                <h1>Your Checking:</h1>
                 <h2>{accounts[accountIndex].balance}</h2>
             </div>
             <div className="transactions-container">

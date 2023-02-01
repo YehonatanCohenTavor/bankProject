@@ -64,13 +64,19 @@ function App() {
     else {
       document.cookie = `onlineUser=${data.token};expires=${data.expiration_date}`;
     }
-    if (user_id != data.user_id) {
-      navigate(`/UserPage/${data.user_id}`);
-    }
+    // if (user_id != data.user_id) {
+      if(data.permission === 2){
+        navigate(`/UserPage/${data.user_id}`);
+      }
+      else {
+        navigate(`/AdminPage/${data.user_id}`);
+      }
+    // }
   }
 
   function logOut() {
-    document.cookie = "onlineUser='';expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    console.log('hi');
+    document.cookie = "onlineUser=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
     navigate("/Home");
   }
 
@@ -91,6 +97,10 @@ function App() {
           <Route path="next" element={<RegisterTwo />}></Route>
         </Route>
         <Route path='/stats' element={<Statistics />}></Route>
+        <Route
+               path="*"
+               element={<h1>404 Page not found!</h1>}
+            />
       </Routes>
     </AppContext.Provider>
   );
