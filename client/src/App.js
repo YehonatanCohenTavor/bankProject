@@ -47,7 +47,7 @@ function App() {
       }
     });
     const data = await res.json();
-    if(data){
+    if (data) {
       func();
     } else {
       navigate("/ErrorPage")
@@ -82,6 +82,7 @@ function App() {
         <Route path="/ErrorPage" element={<ErrorPage />}></Route>
         <Route path='/UserPage/:user_id' element={<NavBar />}>
           <Route index element={<UserPage />}></Route>
+          <Route path='transfer' element={<Transfer />}></Route>
         </Route>
         <Route path='/AdminPage/:user_id' element={<AdminPage />}></Route>
         <Route path="/Login" element={<Login />}></Route>
@@ -90,7 +91,6 @@ function App() {
           <Route path="next" element={<RegisterTwo />}></Route>
         </Route>
         <Route path='/stats' element={<Statistics />}></Route>
-        <Route path='/transfer' element={<Transfer />}></Route>
       </Routes>
     </AppContext.Provider>
   );
