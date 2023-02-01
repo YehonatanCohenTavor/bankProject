@@ -53,3 +53,7 @@
 .UserPage>div {
     margin: 10vh;
 }
+
+.UserPage h1{
+    text-decoration: underline;
+}

@@ -1,9 +1,14 @@
+body {
+    background-size: cover;
+    background: url(https://img.freepik.com/free-vector/blue-abstract-gradient-wave-vector-background_53876-111548.jpg?w=2000) center center no-repeat fixed;
+}
+
 #root {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    background-size: cover;
-    background: url(https://img.freepik.com/free-vector/blue-abstract-gradient-wave-vector-background_53876-111548.jpg?w=2000) center center no-repeat fixed;
+    /* background-size: cover;
+    background: url(https://img.freepik.com/free-vector/blue-abstract-gradient-wave-vector-background_53876-111548.jpg?w=2000) center center no-repeat fixed; */
     font-family: 'BIZ UDPMincho', serif;
 }
 
@@ -82,13 +87,13 @@
 
 }
 
-.HomePage>.buttonsForms h3{
+.HomePage>.buttonsForms h3 {
     font-size: 2em;
     color: rgb(7, 26, 48);
     text-decoration: underline;
 }
 
-.HomePage>.buttonsForms .buttonLink{
+.HomePage>.buttonsForms .buttonLink {
     margin: 2vw;
     padding: 1.3vw 2.5vw;
     background-color: #3a90ec;
@@ -172,4 +177,24 @@
     height: auto;
     background-color: #bed1e0;
     float: left;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #eff1f2;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #1b64be;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #083c7b;
 }

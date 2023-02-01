@@ -21,7 +21,15 @@ router.get(`/aggregate/total`, (req, res) => {
 router.get('/:customer_id', function (req, res, next) {
     database.query(`SELECT * FROM customer WHERE customer_id=${req.params.customer_id}`,(err, result) => {
         if (err) return res.status(503).json(err);
-        res.status(200).json(result);
+        res.status(200).json(result[0]);
+  })
+});
+
+
+router.get('/:user_id/customerData', function (req, res, next) {
+    database.query(`SELECT * FROM customer WHERE user_id=${req.params.user_id}`,(err, result) => {
+        if (err) return res.status(503).json(err);
+        return res.status(200).json(result[0]);
   })
 });
 
@@ -36,7 +44,7 @@ router.put('/:customer_id',validateUpdate, (req, res) => {
         if (err) res.status(503).json(err);
         database.query(`SELECT email,address,phone FROM customer WHERE customer_id=${req.params.customer_id}`, (err, result) => {
             if (err) res.status(503).json(err);
-            res.status(200).json(result[0]);
+            return res.status(200).json(result[0]);
         })
     })
 })

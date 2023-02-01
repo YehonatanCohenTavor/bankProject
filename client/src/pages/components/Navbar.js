@@ -22,9 +22,9 @@ export default function NavBar() {
                         <li className="nav-item">
                             <NavLink to={`/UserPage/${user_id}/Info`}>Personal Info</NavLink>
                         </li>
-                        <li className="nav-item">
+                        {/* <li className="nav-item">
                             <NavLink to={`/UserPage/${user_id}/ChangeInfo`}>Change Personal Info</NavLink>
-                        </li>
+                        </li> */}
                         <li className="nav-item">
                             <NavLink to={`/UserPage/${user_id}/AllTransactions`}>Transactions</NavLink>
                         </li>
@@ -38,7 +38,7 @@ export default function NavBar() {
                             <NavLink to={`/UserPage/${user_id}/AddNewCredit`}>New Credit</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink to={`/UserPage/${user_id}/transfer`}>New Credit</NavLink>
+                            <NavLink to={`/UserPage/${user_id}/transfer`}>New Transaction</NavLink>
                         </li>
                         <li className="nav-item">
                             <NavLink onClick={(e) => {e.preventDefault();logOut();}} to='/Home'>Log out</NavLink> 

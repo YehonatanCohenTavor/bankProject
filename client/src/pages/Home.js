@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { NavLink,Link } from 'react-router-dom';
 import '../styles/Home.css';
+import { AppContext } from '../App';
+
 
 function Home() {
     const [currentIndex, setCurrentIndex] = useState(0);
+    const { logIn,logOut, authorization,getCookies } = useContext(AppContext);
     const images = [
         '/machine.svg',
         '/phone.svg',
@@ -34,7 +37,7 @@ function Home() {
             <h1 className='header'>Hilma Bank</h1>
             <div className='buttonsForms'>
                 <h3>Login or Register</h3>
-                <NavLink to='/login' className='buttonLink'>Login</NavLink>
+                <NavLink  className='buttonLink' to='/login'>Login</NavLink>
                 <NavLink to='/register' className='buttonLink'>Register</NavLink>
             </div>
             <div className='video-continer'>

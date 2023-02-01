@@ -14,24 +14,23 @@ import { AppContext } from '../App'
 function UserPage () {
   const navigate = useNavigate()
   const location = useLocation()
-  const user_Id = location.pathname.split('/')[2]
+  const user_id = location.pathname.split('/')[2]
   const [accounts, setAccounts] = useState([])
   const [transactions, setTransactions] = useState([])
   const [debits, setDebits] = useState([])
   const [accountIndex, setAccountIndex] = useState(0)
-  const { logIn, authorization } = useContext(AppContext)
-  const [getData, setGetData] = useState(false)
+  const { authorization } = useContext(AppContext)
+  const [getData, setGetData] = useState(false);
+  const [totalBalance , setTotalBalance] = useState(false)
 
-  let user_id = useParams()
-  user_id = user_id.user_id
+  //   let user_id = useParams();
+  //   user_id = user_id.user_id
   useEffect(() => {
-    authorization(getAccounts)
+    authorization(getAccounts);
+    getTotalBalance();
   }, [])
 
   const getTransactions = async account => {
-    console.log(
-      `http://localhost:8000/transactions/${account.account_id}/limit`
-    )
     const res = await fetch(
       `http://localhost:8000/transactions/${account.account_id}/limit`
     )
@@ -40,6 +39,7 @@ function UserPage () {
     const response1 = await fetch(`http://localhost:8000/credits/${user_id}`)
     const ans1 = await response1.json()
     for (let key of ans) {
+      console.log(key);
       const response2 = await fetch(
         `http://localhost:8000/customers/${key.sender_account_id}`
       )
@@ -73,18 +73,27 @@ function UserPage () {
   }
 
   const getAccounts = async () => {
-    const res = await fetch(`http://localhost:8000/accounts/${user_id}`)
+    const res = await fetch(
+      `http://localhost:8000/accounts/${user_id}/accounts`
+    )
     const data = await res.json()
     setAccounts(data)
     getTransactions(data[0])
     setGetData(true)
   }
 
-  const changeAccounts = async (e) => {
-    if (e.target.value === 'Select Account') return;
-    if (+(e.target.value) !== accountIndex){
-        setAccountIndex(e.target.value)
-        getTransactions(accounts[+e.target.value])
+  const changeAccounts = async e => {
+    if (e.target.value === 'Select Account') return
+    if (+e.target.value !== accountIndex) {
+      const res = await fetch(
+        `http://localhost:8000/transactions/${
+          accounts[Number(e.target.value)].account_id
+        }/limit`
+      )
+      const ans = await res.json()
+      if (ans.length === 0) return alert('No transactions found')
+      setAccountIndex(e.target.value)
+      getTransactions(accounts[+e.target.value])
     }
   }
 
@@ -132,23 +141,25 @@ function UserPage () {
     let newDebits = []
     switch (e.target.value) {
       case 'high to low':
-        console.log(debits)
         newDebits = debits.sort((a, b) => b.amount - a.amount)
-        console.log(newDebits)
         setDebits([...newDebits])
         break
       case 'low to high':
-        console.log(debits)
         newDebits = debits.sort((a, b) => b.amount - a.amount)
         setDebits([...newDebits])
-        console.log(newDebits)
         break
       default:
         break
     }
   }
 
-  if (getData === false) {
+  const getTotalBalance = async () => {
+    const res = await fetch(`http://localhost:8000/accounts/${user_id}/totalBalance`);
+    const data = await res.json()
+    setTotalBalance(data.total);
+  }
+
+  if (getData === false || totalBalance === false) {
     return (
       <>
         <Loading />
@@ -159,8 +170,37 @@ function UserPage () {
   return (
     <div className='UserPage'>
       <div className='current-container'>
-        <h1>Your Checking:</h1>
-        <h2>{accounts[accountIndex].balance}</h2>
+        <h1>Your Total Balance:</h1>
+        <br />
+        <h2>{totalBalance}</h2>
+      </div>
+      <div className='accounts-container'>
+        <table>
+          <thead>
+            <tr>
+              <th>Account Id</th>
+              <th>Account Name</th>
+              <th>Type</th>
+              <th>Balance</th>
+              <th>Blocked</th>
+            </tr>
+          </thead>
+          {accounts.map((account, index) => (
+            <tbody key={index}>
+              <tr>
+                <td>{account.account_id}</td>
+                <td>{account.name}</td>
+                <td>{account.type}</td>
+                <td>{account.balance}</td>
+                <td>
+                  {account.deleted
+                    ? 'No'
+                    : 'Account is blocked, please call us as soon as possible'}
+                </td>
+              </tr>
+            </tbody>
+          ))}
+        </table>
       </div>
       <div className='transactions-container'>
         <h1>Your Transactions:</h1>
@@ -168,7 +208,8 @@ function UserPage () {
           <option value={null}>Select Account</option>
           {accounts.map((account, index) => (
             <option key={account.account_id} value={index}>
-              {index}
+              {account.account_id}{' '}
+              {account.deleted ? 'Is Blocked' : account.name}
             </option>
           ))}
         </select>

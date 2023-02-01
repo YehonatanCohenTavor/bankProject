@@ -1,6 +1,6 @@
-import React, { useRef, useState,useContext } from 'react';
+import React, { useRef, useState,useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../login.css';
+import '../styles/loginPage.css';
 import { AppContext } from '../App';
 
 
@@ -9,8 +9,20 @@ function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const inputRef = useRef(null);
-    const { logIn } = useContext(AppContext);
+    const { logIn,getCookies } = useContext(AppContext);
 
+    useEffect(()=>{
+        checkIfCanLogIn()
+    },[])
+
+    const checkIfCanLogIn = async() => {
+        if(getCookies('onlineUser') != ''){
+            const res = await fetch(`http://localhost:8000/users/${getCookies('onlineUser')}`)
+            const data = await res.json();
+            navigate(`/UserPage/${data.user_id}`)
+            console.log(data);
+        }
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();

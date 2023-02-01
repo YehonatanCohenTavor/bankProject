@@ -1,0 +1,76 @@
+.UserInfo form {
+    list-style-type: disc;
+    font-size: 1.5em;
+}
+
+.UserInfo form li {
+    margin: 8vh;
+}
+
+.UserInfo>h1 {
+    margin: 3vh;
+    text-decoration: underline;
+    text-align: center;
+}
+
+.UserInfo {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 50%;
+    margin: 0 auto;
+}
+
+.UserInfo h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.UserInfo ul {
+    list-style: none;
+    padding: 0;
+}
+
+.UserInfo li {
+    /* margin: 10px 0; */
+    font-size: 18px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.UserInfo button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: #3498db;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.UserInfo button:hover {
+    background-color: #2980b9;
+}
+
+.UserInfo .buttons-continer{
+    width: 50vw;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around
+}
+
+.UserInfo .speciel{
+    display: flex;
+    justify-content: space-around
+}
+
+@media screen and (max-width: 768px) {
+    .UserInfo {
+        width: 80%;
+    }
+}

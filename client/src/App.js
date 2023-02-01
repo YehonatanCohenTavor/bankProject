@@ -13,6 +13,7 @@ import ErrorPage from './pages/components/ErrorPage';
 import Statistics from './pages/statistics';
 import Transfer from './pages/transfer';
 import CreateAccount from './pages/createAccount';
+import Info from './pages/Info';
 export const AppContext = createContext();
 
 
@@ -76,13 +77,12 @@ function App() {
   }
 
   function logOut() {
-    console.log('hi');
-    document.cookie = "onlineUser=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    // document.cookie = "onlineUser=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
     navigate("/Home");
   }
 
   return (
-    <AppContext.Provider value={{ logIn, logOut, authorization }}>
+    <AppContext.Provider value={{ logIn, logOut, authorization,getCookies }}>
       <Routes>
         <Route index element={<Navigate replace to="/Home" />}></Route>
         <Route path="/Home" element={<Home />}></Route>
@@ -91,6 +91,7 @@ function App() {
           <Route index element={<UserPage />}></Route>
           <Route path='transfer' element={<Transfer />}></Route>
           <Route path='createAccount' element={<CreateAccount />}></Route>
+          <Route path='Info' element={<Info />}></Route>
         </Route>
         <Route path='/AdminPage/:user_id' element={<AdminPage />}></Route>
         <Route path="/Login" element={<Login />}></Route>
