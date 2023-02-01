@@ -17,9 +17,17 @@ router.get('/:user_id', function (req, res, next) {
     res.status(200).json(result);
   })
 })
+
+router.get(`/aggregate/total`, (req, res) => {
+  database.query(`SELECT COUNT(*) FROM transaction`, (err, result) => {
+    if (err) return res.status(503).json(err);
+    res.status(200).json(result[0]);
+  });
+})
+
 router.post('/', function (req, res, next) {
 
-  const { sender_account_id, reciever_account_id, credit_id, amount, description } = req.body;
+  const { sender_account_id,reciever_account_id, amount, description } = req.body;
 
   // database.beginTransaction(function (err) {
   //   if (err) {
@@ -37,7 +45,9 @@ router.post('/', function (req, res, next) {
   //         throw error;
   //       });
   //     }
-  database.query(`INSERT INTO transaction (sender_account_id, reciever_account_id, credit_id, amount, description) VALUES(${sender_account_id}, ${reciever_account_id}, ${credit_id}, ${amount}, '${description}')`, function (err, result) {
+  let sql = `INSERT INTO transaction (sender_account_id, reciever_account_id, amount, description) 
+             VALUES(${sender_account_id}, ${reciever_account_id}, ${amount}, '${description}')`
+  database.query(sql, function (err, result) {
     if (err) return res.status(503).send(err);
     database.query(`SELECT * FROM transaction WHERE transaction_id = ${result.insertId}`, function (err, result) {
       if (err) return res.status(503).send(err);

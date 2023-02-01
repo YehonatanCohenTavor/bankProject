@@ -19,6 +19,15 @@ router.get('/:account_id', function (req, res) {
     })
 });
 
+router.get('/:user_id/accounts', (req, res) => {
+    const { user_id } = req.params;
+    const sql = `SELECT account_id FROM account WHERE user_id=${user_id}`;
+    database.query(sql, (err, result) => {
+        if (err) res.status(503).json(err);
+        res.status(200).json(result);
+    })
+})
+
 router.get(`/aggregate/total`, (req, res) => {
     database.query(`SELECT COUNT(*) FROM account`, (err, result) => {
         if (err) return res.status(503).json(err);
