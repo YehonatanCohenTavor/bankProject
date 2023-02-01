@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import '../styles/Home.css';
 
 function Home() {
@@ -33,9 +34,8 @@ function Home() {
             <h1 className='header'>Hilma Bank</h1>
             <div className='buttonsForms'>
                 <h3>Login or Register</h3>
-                <button>Login</button>
-                <button>Register</button>
-
+                <NavLink to='/login' className='buttonLink'>Login</NavLink>
+                <NavLink to='/register' className='buttonLink'>Register</NavLink>
             </div>
             <div className='video-continer'>
                 <video autoPlay={true} muted loop >
