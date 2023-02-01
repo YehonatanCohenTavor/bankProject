@@ -1,11 +1,13 @@
 import React, { useContext, useState } from "react";
 import { NavLink, Outlet, useParams, Link, useLocation } from "react-router-dom";
 import '../../styles/Navbar.css';
+import { AppContext } from "../../App";
 
 export default function NavBar() {
     const location = useLocation();
     const user_id = location.pathname.split("/")[2];
     const [isOpen, setIsOpen] = useState(false);
+    const { logIn,logOut, authorization } = useContext(AppContext);
 
     const handleClick = () => {
         setIsOpen(!isOpen);
@@ -15,7 +17,7 @@ export default function NavBar() {
         <>
             <header className="header">
                 <nav className="navbar">
-                    <a href="#" className="nav-logo">we need to make logo</a>
+                    <a href="/Home" className="nav-logo">we need to make logo</a>
                     <ul className={isOpen ? "nav-menu active" : "nav-menu"}>
                         <li className="nav-item">
                             <NavLink to={`/UserPage/${user_id}/Info`}>Personal Info</NavLink>
@@ -24,7 +26,7 @@ export default function NavBar() {
                             <NavLink to={`/UserPage/${user_id}/ChangeInfo`}>Change Personal Info</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink to={`/UserPage/${user_id}/AllTransfers`}>Transfers</NavLink>
+                            <NavLink to={`/UserPage/${user_id}/AllTransactions`}>Transactions</NavLink>
                         </li>
                         <li className="nav-item">
                             <NavLink to={`/UserPage/${user_id}/Statistic`}>Statistic</NavLink>
@@ -36,7 +38,11 @@ export default function NavBar() {
                             <NavLink to={`/UserPage/${user_id}/AddNewCredit`}>New Credit</NavLink>
                         </li>
                         <li className="nav-item">
-                            <Link to="/Home">Log out</Link> 
+                            <NavLink to={`/UserPage/${user_id}/transfer`}>New Credit</NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink onClick={(e) => {e.preventDefault();logOut();}} to='/Home'>Log out</NavLink> 
+                            {/* <button onClick={logout}>Log Out</button> */}
                         </li>
                     </ul>
                     <div className={isOpen ? "hamburger active" : "hamburger"} onClick={handleClick}>

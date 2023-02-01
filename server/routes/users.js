@@ -8,12 +8,10 @@ router.get('/:token', function (req, res, next) {
   database.query(`SELECT user_id FROM cookie WHERE token='${req.params.token}'`, (err, result) => {
     if (err) res.status(503).json(err);
     jwt.verify(token, result[0].user_id.toString(), function (err, decoded) {
-      console.log(decoded);
       res.status(200).json(decoded);
     });
   })
 });
-
 
 
 module.exports = router;
