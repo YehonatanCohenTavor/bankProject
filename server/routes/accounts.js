@@ -19,6 +19,13 @@ router.get('/:user_id', function (req, res) {
     })
 });
 
+router.get(`/aggregate/total`, (req, res) => {
+    database.query(`SELECT COUNT(*) FROM account`, (err, result) => {
+        if (err) return res.status(503).json(err);
+        res.status(200).json(result[0]);
+    });
+})
+
 router.post('/', (req, res) => {
     const { user_id, type, name } = req.body;
     const sql = `INSERT INTO account (user_id,balance,type,name) VALUES (${user_id},0,'${type}','${name}');`;

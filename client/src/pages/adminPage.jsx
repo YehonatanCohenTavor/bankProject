@@ -5,16 +5,68 @@ import { useEffect } from 'react';
 
 function AdminPage() {
     const [transactions, setTransactions] = useState([]);
+    const [filteredTransactions, setFilteredTransactions] = useState([]);
+    const [filter, setFilter] = useState('all');
 
     useEffect(() => {
         fetch(`http://localhost:8000/transactions`)
-        .then(response=>response.json())
-        .then(data=>setTransactions(data))
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(item => item.date = new Date(item.date).toLocaleDateString())
+                setTransactions(data)
+                setFilteredTransactions(data);
+            })
     }, [])
+
+    useEffect(() => {
+        let sorted;
+        switch (filter) {
+            case 'all':
+                setFilteredTransactions([...transactions]);
+                break;
+            case 'progress':
+                sorted = transactions.filter(item => item.status === 'In Progress')
+                setFilteredTransactions([...sorted]);
+                break;
+            case 'completed':
+                sorted = transactions.filter(item => item.status === 'Completed')
+                setFilteredTransactions([...sorted]);
+                break;
+            case 'not approved':
+                sorted = transactions.filter(item => item.status === 'Not Approved')
+                setFilteredTransactions([...sorted]);
+                break;
+        }
+    }, [filter])
+
+    const handleChange = ({ target }) => {
+        setFilter(target.value);
+    }
+
+    const updateStatus = ({ target }) => {
+        fetch(`http://localhost:8000/transactions/${target.id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+        })
+            .then(response => response.json())
+            .then(data => {
+                let updatedTransactions = transactions.map(transaction => {
+                    if (transaction.transaction_id === data.transaction_id) transaction.status = 'Completed';
+                    return transaction;
+                })
+                setTransactions([...updatedTransactions]);
+            })
+    }
 
     return (
         <div className='adminPage'>
             <h2>Transactions</h2>
+            <select onChange={handleChange} value={filter}>
+                <option value='all'>All</option>
+                <option value='progress'> In progress</option>
+                <option value='completed'>Completed</option>
+                <option value='not approved'>Not approved</option>
+            </select>
             <table>
                 <thead>
                     <tr>
@@ -27,9 +79,9 @@ function AdminPage() {
                         <th>status</th>
                     </tr>
                 </thead>
-                <tbody>
-                    {transactions.map(transaction => {
-                        <tr key={transaction.transaction_id}>
+                {filteredTransactions.map(transaction => {
+                    return (<tbody key={transaction.transaction_id}>
+                        <tr>
                             <td>{transaction.sender_account_id}</td>
                             <td>{transaction.reciever_account_id}</td>
                             <td>{transaction.credit_id === null ? 'transfer' : transaction.credit_id}</td>
@@ -37,9 +89,10 @@ function AdminPage() {
                             <td>{transaction.date}</td>
                             <td>{transaction.description}</td>
                             <td>{transaction.status}</td>
+                            {transaction.status == 'In Progress' ? <td><button id={transaction.transaction_id} onClick={updateStatus}>Approve</button></td> : null}
                         </tr>
-                    })}
-                </tbody>
+                    </tbody>)
+                })}
             </table>
         </div>
     );

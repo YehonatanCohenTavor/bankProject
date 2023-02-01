@@ -10,6 +10,7 @@ import UserPage from './pages/UserPage';
 import AdminPage from './pages/adminPage';
 import NavBar from './pages/components/Navbar';
 import ErrorPage from './pages/components/ErrorPage';
+import Statistics from './pages/statistics';
 export const AppContext = createContext();
 
 
@@ -87,6 +88,7 @@ function App() {
           <Route index path="" element={<RegisterOne />}></Route>
           <Route path="next" element={<RegisterTwo />}></Route>
         </Route>
+        <Route path='/stats' element={<Statistics/>}></Route>
       </Routes>
     </AppContext.Provider>
   );

@@ -11,12 +11,20 @@ router.get('/', function (req, res, next) {
   })
 });
 
+router.get(`/aggregate/total`, (req, res) => {
+    database.query(`SELECT COUNT(*) FROM customer`, (err, result) => {
+        if (err) return res.status(503).json(err);
+        res.status(200).json(result[0]);
+    });
+})
+
 router.get('/:customer_id', function (req, res, next) {
     database.query(`SELECT * FROM customer WHERE customer_id=${req.params.customer_id}`,(err, result) => {
         if (err) return res.status(503).json(err);
         res.status(200).json(result);
   })
 });
+
 
 router.put('/:customer_id',validateUpdate, (req, res) => {
     let sql = '';
