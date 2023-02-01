@@ -1,0 +1,16 @@
+.statsContainer{
+    display: flex;
+    height:500px;
+    justify-content: space-around;
+    align-items: center;
+    
+}
+
+.chart{
+    width:30%;
+    height:200px;
+}
+
+#statsH2{
+    text-align: center;
+}

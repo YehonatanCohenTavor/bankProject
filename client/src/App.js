@@ -9,6 +9,7 @@ import RegisterTwo from './pages/RegisterTwo';
 import UserPage from './pages/UserPage';
 import AdminPage from './pages/adminPage';
 import Statistics from './pages/statistics';
+import Transfer from './pages/transfer';
 export const AppContext = createContext();
 
 
@@ -38,8 +39,8 @@ function App() {
   return (
     <AppContext.Provider value={'hi'}>
       <Routes>
-        <Route index element={<Navigate replace to="/Home"  />}></Route>
-        <Route path="/Home" element={<Home  />}></Route>
+        <Route index element={<Navigate replace to="/Home" />}></Route>
+        <Route path="/Home" element={<Home />}></Route>
         <Route path='/UserPage/:user_id' element={<UserPage />}></Route>
         <Route path='/AdminPage/:user_id' element={<AdminPage />}></Route>
         <Route path="/Login" element={<Login />}></Route>
@@ -47,7 +48,8 @@ function App() {
           <Route index path="" element={<RegisterOne />}></Route>
           <Route path="next" element={<RegisterTwo />}></Route>
         </Route>
-        <Route path='/stats' element={<Statistics/>}></Route>
+        <Route path='/stats' element={<Statistics />}></Route>
+        <Route path='/transfer' element={<Transfer />}></Route>
       </Routes>
     </AppContext.Provider>
   );
