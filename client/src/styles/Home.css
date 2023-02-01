@@ -88,7 +88,7 @@
     text-decoration: underline;
 }
 
-.HomePage>.buttonsForms button{
+.HomePage>.buttonsForms .buttonLink{
     margin: 2vw;
     padding: 1.3vw 2.5vw;
     background-color: #3a90ec;
