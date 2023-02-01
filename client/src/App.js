@@ -14,6 +14,8 @@ import Statistics from './pages/statistics';
 import Transfer from './pages/transfer';
 import CreateAccount from './pages/createAccount';
 import Info from './pages/Info';
+import UserStats from './pages/userStats';
+import CreditCards from './pages/creditCards';
 export const AppContext = createContext();
 
 
@@ -89,9 +91,11 @@ function App() {
         <Route path="/ErrorPage" element={<ErrorPage />}></Route>
         <Route path='/UserPage/:user_id' element={<NavBar />}>
           <Route index element={<UserPage />}></Route>
+          <Route path='stats' element={<UserStats />}></Route>
           <Route path='transfer' element={<Transfer />}></Route>
           <Route path='createAccount' element={<CreateAccount />}></Route>
           <Route path='Info' element={<Info />}></Route>
+          <Route path='creditCards' element={<CreditCards/>}></Route>
         </Route>
         <Route path='/AdminPage/:user_id' element={<AdminPage />}></Route>
         <Route path="/Login" element={<Login />}></Route>

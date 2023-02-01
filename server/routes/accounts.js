@@ -48,13 +48,13 @@ router.get(`/:user_id/totalBalance`, (req, res) => {
 
 
 router.post('/', (req, res) => {
-  const { user_id, type, name } = req.body
-  const sql = `INSERT INTO account (user_id,balance,type,name) VALUES (${user_id},0,'${type}','${name}');`
-  database.query(sql, (err, result) => {
-    if (err) res.status(503).json(err)
-    res.status(200).send('Account created successfully. Current balance is 0')
-  })
-})
+    const { user_id, type, name } = req.body;
+    const sql = `INSERT INTO account (user_id,balance,type,name) VALUES (${user_id},0,'${type}','${name}');`;
+    database.query(sql, (err, result) => {
+        if (err) res.status(503).json(err);
+        res.status(200).json('Account created successfully. Current balance is 0');
+    })
+});
 
 router.delete('/', (req, res) => {
   const account_id = req.body.account_id

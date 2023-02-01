@@ -13,7 +13,7 @@ function RegisterOne() {
         address: '',
         birth_date: '',
         phone: '',
-        branch: ''
+        branch: 'CHI'
     })
 
     useEffect(() => {
