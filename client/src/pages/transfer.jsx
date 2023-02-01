@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import { AppContext } from "../App";
+import '../styles/transfer.css'
+import Footer from './components/Footer';
 
 function Transfer() {
     const [formState, setFormState] = useState({

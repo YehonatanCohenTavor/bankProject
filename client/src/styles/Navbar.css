@@ -29,6 +29,14 @@ a {
     align-items: center;
     padding: 1rem 1.5rem;
 }
+.navbar img {
+    width:20%;
+    height:auto;
+}
+
+.navbar .logo {
+    justify-content: center;
+}
 
 .hamburger {
     display: none;
@@ -51,7 +59,7 @@ a {
 }
 
 .nav-item {
-    margin-left: 5rem;
+    margin-left: 3rem;
 }
 
 .nav-link {

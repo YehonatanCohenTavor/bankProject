@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { AppContext } from '../App';
 import { useLocation } from 'react-router-dom';
 import '../styles/creditCards.css';
+import Footer from './components/Footer';
 
 function CreditCards() {
     const [creditCards, setCreditCards] = useState([]);

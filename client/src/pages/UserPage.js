@@ -10,6 +10,7 @@ import {
 import Loading from './components/Loading'
 import '../styles/UserPage.css'
 import { AppContext } from '../App'
+import Footer from './components/Footer'
 
 function UserPage () {
   const navigate = useNavigate()
@@ -39,17 +40,16 @@ function UserPage () {
     const response1 = await fetch(`http://localhost:8000/credits/${user_id}`)
     const ans1 = await response1.json()
     for (let key of ans) {
-      console.log(key);
       const response2 = await fetch(
         `http://localhost:8000/customers/${key.sender_account_id}`
       )
       const ans2 = await response2.json()
-      key.sender_full_name = `${ans2[0].first_name} ${ans2[0].last_name}`
+      key.sender_full_name = `${ans2.first_name} ${ans2.last_name}`
       const response3 = await fetch(
         `http://localhost:8000/customers/${key.reciever_account_id}`
       )
       const ans3 = await response3.json()
-      key.reciver_full_name = `${ans3[0].first_name} ${ans3[0].last_name}`
+      key.reciver_full_name = `${ans3.first_name} ${ans3.last_name}`
       key.date = new Date(key.date).toLocaleDateString()
       if (key.credit_id === null) {
         setTransactions(prev => [...prev, key])
@@ -275,6 +275,7 @@ function UserPage () {
           ))}
         </table>
       </div>
+      <Footer />
     </div>
   )
 }

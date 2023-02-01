@@ -17,25 +17,27 @@ export default function NavBar() {
         <>
             <header className="header">
                 <nav className="navbar">
-                    <a href="/Home" className="nav-logo">we need to make logo</a>
+                    <div className="logo">
+                        <a href="/Home" className="nav-logo">HILMA Bank</a>
+                    </div>
                     <ul className={isOpen ? "nav-menu active" : "nav-menu"}>
+                        <li className="nav-item">
+                            <NavLink to={`/UserPage/${user_id}`}>Home</NavLink>
+                        </li>
                         <li className="nav-item">
                             <NavLink to={`/UserPage/${user_id}/Info`}>Personal Info</NavLink>
                         </li>
-                        {/* <li className="nav-item">
-                            <NavLink to={`/UserPage/${user_id}/ChangeInfo`}>Change Personal Info</NavLink>
-                        </li> */}
                         <li className="nav-item">
                             <NavLink to={`/UserPage/${user_id}/AllTransactions`}>Transactions</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink to={`/UserPage/${user_id}/Statistic`}>Statistic</NavLink>
+                            <NavLink to={`/UserPage/${user_id}/stats`}>Statistic</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink to={`/UserPage/${user_id}/AddNewAccount`}>New Account</NavLink>
+                            <NavLink to={`/UserPage/${user_id}/createAccount`}>New Account</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink to={`/UserPage/${user_id}/AddNewCredit`}>New Credit</NavLink>
+                            <NavLink to={`/UserPage/${user_id}/creditCards`}>Credit Cards</NavLink>
                         </li>
                         <li className="nav-item">
                             <NavLink to={`/UserPage/${user_id}/transfer`}>New Transaction</NavLink>

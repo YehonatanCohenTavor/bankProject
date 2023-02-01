@@ -1,0 +1,39 @@
+.AllTransactionPage table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.AllTransactionPage caption h2 {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 10px;
+    text-decoration: underline;
+    margin-bottom: 5vh;
+}
+
+.AllTransactionPage thead th {
+    background-color: #f2f2f2;
+    text-align: left;
+    padding: 10px;
+}
+
+.AllTransactionPage tbody td {
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    padding: 2vh;
+    font-size: 1.2em;
+    font-weight: 300;
+}
+
+
+.AllTransactionPage tbody tr:hover {
+    background-color: #c0dff9;
+}
+
+.AllTransactionPage h1 {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    text-align: center;
+}

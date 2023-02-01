@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import CanvasJSReact from '../canvasjs.react';
 import { AppContext } from '../App';
 import '../styles/stats.css';
+import Footer from './components/Footer';
 
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
@@ -28,7 +29,6 @@ function UserStats() {
         fetch(`http://localhost:8000/transactions/${user_id}/sum`)
             .then(response => response.json())
             .then(data => {
-                console.log(data);
                 setTransactionsSum(data[0]);
             })
     }
@@ -82,7 +82,7 @@ function UserStats() {
 
 
     return (
-        <>
+        <div className='UserStats'>
             <h2 id='statsH2'>Your Statistics</h2>
             <div className='statsContainer'>
                 <div className='chart'>
@@ -92,7 +92,7 @@ function UserStats() {
                     <CanvasJSChart options={transactionSum} containerProps={{ width: '100%', height: '100%' }} />
                 </div>
             </div>
-        </>
+        </div>
     );
 }
 

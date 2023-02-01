@@ -3,6 +3,7 @@ import { Navigate, useLocation, useNavigate } from 'react-router-dom'
 import { AppContext } from '../App'
 import Loading from './components/Loading'
 import '../styles/info.css'
+import Footer from './components/Footer'
 
 function Info () {
   const { authorization } = useContext(AppContext)

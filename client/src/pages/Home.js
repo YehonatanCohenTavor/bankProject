@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { NavLink,Link } from 'react-router-dom';
 import '../styles/Home.css';
 import { AppContext } from '../App';
+import Footer from './components/Footer';
 
 
 function Home() {
@@ -117,7 +118,7 @@ function Home() {
             <br />
             <br />
             <br />
-            <footer>
+            {/* <footer>
                 <ul>
                     <li>
                         <a>Privacy and Security</a>
@@ -132,7 +133,7 @@ function Home() {
                         <a>Accessibility</a>
                     </li>
                 </ul>
-            </footer>
+            </footer> */}
         </div>
     );
 }

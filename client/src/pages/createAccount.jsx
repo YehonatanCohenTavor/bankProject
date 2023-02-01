@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import { AppContext } from "../App";
+import '../styles/createAccount.css';
+import Footer from './components/Footer';
 
 function CreateAccount() {
     const [serverResponse, setServerResponse] = useState('');
@@ -39,7 +41,7 @@ function CreateAccount() {
         }
 
     return (
-        <div>
+        <div className='CreateAccount'>
             <form onSubmit={(handleSubmit)}>
                 <label>Account name
                     <input type="text" value={formData.name} onChange={handleChange} name='name' />

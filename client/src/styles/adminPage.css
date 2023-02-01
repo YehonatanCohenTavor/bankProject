@@ -1,0 +1,164 @@
+.adminPage table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.adminPage caption h2 {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 10px;
+    text-decoration: underline;
+    margin-bottom: 5vh;
+}
+
+.adminPage thead th {
+    background-color: #f2f2f2;
+    text-align: left;
+    padding: 10px;
+}
+
+.adminPage tbody td {
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    padding: 2vh;
+    font-size: 1.2em;
+    font-weight: 300;
+}
+
+
+.adminPage tbody tr:hover {
+    background-color: #c0dff9;
+}
+
+.adminPage {
+    text-align: center;
+}
+
+.adminPage>div {
+    margin: 10vh;
+}
+
+.adminPage h1 {
+    text-decoration: underline;
+}
+
+.adminPage {
+    width: 90%;
+    margin: 20px auto;
+    text-align: center;
+}
+
+.adminPage h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.adminPage select {
+    width: 200px;
+    height: 40px;
+    background-color: transparent;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 0 10px 20px;
+    padding: 0 10px;
+    font-size: 18px;
+    color: #333;
+    appearance: none;
+}
+
+.adminPage select:focus {
+    outline: none;
+    border-color: #3F51B5;
+}
+
+/* .adminPage table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.adminPage thead th {
+    background-color: #3F51B5;
+    color: #fff;
+    font-size: 18px;
+    padding: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.adminPage tbody td {
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+    font-size: 16px;
+    color: #333;
+} */
+
+.adminPage button {
+    background-color: #3F51B5;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 4px 8px;
+    font-size: 14px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.adminPage a {
+    margin-right: 10px;
+    color: #333;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+.adminPage .links {
+    margin:4vh;
+    display:flex ;
+    flex-direction: row;
+    width: 30vw;
+    height: auto;
+    justify-content: space-between;
+
+}
+
+.adminPage .links>* {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 4px 8px;
+}
+
+.adminPage .links>*:hover {
+    background-color: #3F51B5;
+    color: #fff;
+}
+
+
+@media (max-width: 768px) {
+    .adminPage {
+        width: 95%;
+    }
+
+    .adminPage select {
+        width: 100%;
+    }
+
+    .adminPage thead th {
+        font-size: 16px;
+    }
+
+    .adminPage tbody td {
+        font-size: 14px;
+    }
+
+    .adminPage button {
+        font-size: 12px;
+        padding: 5px 10px;
+    }
+
+    .adminPage a {
+        font-size: 16px;
+    }
+}

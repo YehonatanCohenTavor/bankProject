@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
+import { AppContext } from '../App';
+import '../styles/adminPage.css';
+import Footer from './components/Footer';
 
 
 function AdminPage() {
     const [transactions, setTransactions] = useState([]);
     const [filteredTransactions, setFilteredTransactions] = useState([]);
     const [filter, setFilter] = useState('all');
+    const location = useLocation();
+    const user_id = location.pathname.split("/")[2];
+    const {logOut} = useContext(AppContext)
+
 
     useEffect(() => {
         fetch(`http://localhost:8000/transactions`)
@@ -60,6 +68,10 @@ function AdminPage() {
 
     return (
         <div className='adminPage'>
+            <div className='links'>
+                <NavLink to={`/AdminPage/${user_id}/stats`}>Statistics</NavLink>
+                <NavLink onClick={(e) => {e.preventDefault(); document.cookie = "onlineUser=;expires=Thu, 01 Jan 1970 00:00:00 GMT";}} to='/Home'>Log out</NavLink> 
+            </div>
             <h2>Transactions</h2>
             <select onChange={handleChange} value={filter}>
                 <option value='all'>All</option>
@@ -93,7 +105,7 @@ function AdminPage() {
                         </tr>
                     </tbody>)
                 })}
-            </table>
+            </table>  
         </div>
     );
 }

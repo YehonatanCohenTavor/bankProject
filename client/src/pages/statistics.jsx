@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import CanvasJSReact from '../canvasjs.react';
 import '../styles/stats.css'
+import Footer from './components/Footer';
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 

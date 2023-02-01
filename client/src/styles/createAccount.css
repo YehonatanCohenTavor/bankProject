@@ -1,0 +1,69 @@
+.CreateAccount {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px;
+    background-color: #F2F2F2;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+    margin: 50px 0;
+}
+
+.CreateAccount form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    margin-top: 30px;
+}
+
+.CreateAccount label {
+    margin-bottom: 20px;
+    width: 100%;
+    text-align: left;
+    font-size: 20px;
+}
+
+.CreateAccount input,
+select {
+    width: 100%;
+    padding: 10px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.CreateAccount button[type='submit'] {
+    background-color: #4c91af;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.CreateAccount p {
+    color: red;
+    font-size: 18px;
+}
+
+@media screen and (max-width: 768px) {
+    .CreateAccount label {
+        font-size: 16px;
+    }
+
+    .CreateAccount input,
+    select {
+        font-size: 16px;
+    }
+
+    .CreateAccount button[type='submit'] {
+        font-size: 16px;
+    }
+
+    .CreateAccount p {
+        font-size: 16px;
+    }
+}

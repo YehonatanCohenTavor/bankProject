@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import '../styles/register.css';
+import Footer from './components/Footer';
 
 function RegisterTwo() {
     const navigate = useNavigate();

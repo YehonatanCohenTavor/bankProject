@@ -16,6 +16,8 @@ import CreateAccount from './pages/createAccount';
 import Info from './pages/Info';
 import UserStats from './pages/userStats';
 import CreditCards from './pages/creditCards';
+import AllTransactions from './pages/AllTransactions';
+import Footer from './pages/components/Footer';
 export const AppContext = createContext();
 
 
@@ -79,7 +81,7 @@ function App() {
   }
 
   function logOut() {
-    // document.cookie = "onlineUser=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    document.cookie = "onlineUser=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
     navigate("/Home");
   }
 
@@ -96,14 +98,15 @@ function App() {
           <Route path='createAccount' element={<CreateAccount />}></Route>
           <Route path='Info' element={<Info />}></Route>
           <Route path='creditCards' element={<CreditCards/>}></Route>
+          <Route path='AllTransactions' element={<AllTransactions/>}></Route>
         </Route>
         <Route path='/AdminPage/:user_id' element={<AdminPage />}></Route>
+        <Route path='/AdminPage/:user_id/stats' element={<Statistics />}></Route>
         <Route path="/Login" element={<Login />}></Route>
         <Route path="/Register" >
           <Route index path="" element={<RegisterOne />}></Route>
           <Route path="next" element={<RegisterTwo />}></Route>
         </Route>
-        <Route path='/stats' element={<Statistics />}></Route>
         <Route
                path="*"
                element={<h1>404 Page not found!</h1>}
