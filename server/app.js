@@ -15,12 +15,19 @@ const accountsRouter = require('./routes/accounts');
 
 var app = express();
 
-app.use(cors());
+// app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(
+    cors({
+        credentials: true,
+        origin: process.env.FRONTEND_URL ?? "http://localhost:3000",
+        optionsSuccessStatus: 200,
+    })
+);
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

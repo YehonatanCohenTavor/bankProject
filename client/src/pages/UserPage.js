@@ -1,28 +1,36 @@
-import React, { useState, createContext, useEffect } from "react";
+import React, { useState, createContext, useEffect,useContext } from "react";
 import { Routes, Route, Navigate, useNavigate, useParams, useLocation } from "react-router-dom";
-
+import Loading from "./components/Loading";
+import '../styles/UserPage.css';
+import { AppContext } from "../App";
 
 function UserPage() {
-    const [current, setCurrent] = useState(null);
+    const navigate = useNavigate();
+    const location = useLocation();
+    const user_Id = location.pathname.split("/")[2];
+    const [accounts, setAccounts] = useState([]);
     const [transactions, setTransactions] = useState([]);
     const [debits, setDebits] = useState([]);
+    const [accountIndex, setAccountIndex] = useState(0);
+    const { logIn, authorization } = useContext(AppContext);
 
+
+    
     let user_id = useParams();
     user_id = user_id.user_id;
-    useEffect(() => {
-        getBalance();
-        getTransactions();
+    useEffect(() => {      
+        authorization(getAccounts);
+        
     }, []);
+    
+    
 
-    const getBalance = async () => {
-        const res = await fetch(`http://localhost:8000/accounts/${user_id}`);
-        const data = await res.json();
-        setCurrent(data[0].balance);
-    }
 
-    const getTransactions = async () => {
-        const res = await fetch(`http://localhost:8000/transactions/${user_id}`);
+    const getTransactions = async (account) => {
+        console.log(`http://localhost:8000/transactions/${account.account_id}/limit`);
+        const res = await fetch(`http://localhost:8000/transactions/${account.account_id}/limit`);
         const ans = await res.json();
+        if (ans.length === 0) return alert("No transactions found");
         const response1 = await fetch(`http://localhost:8000/credits/${user_id}`);
         const ans1 = await response1.json();
         for (let key of ans) {
@@ -47,6 +55,18 @@ function UserPage() {
         }
     }
 
+    const getAccounts = async () => {
+        const res = await fetch(`http://localhost:8000/accounts/${user_id}`);
+        const data = await res.json();
+        setAccounts(data);
+        getTransactions(data[0]);
+    }
+
+
+    const changeAccounts = async (e) => {
+        setAccountIndex(e.target.value);
+        getTransactions(accounts[+(e.target.value)]);
+    }
 
     const filterTransactions = async (e) => {
         console.log(e.target.value);
@@ -88,14 +108,47 @@ function UserPage() {
         }
     }
 
+    const filterDebits = async (e) => {
+        let newDebits = [];
+        switch (e.target.value) {
+            case 'high to low':
+                console.log(debits);
+                newDebits = debits.sort((a, b) => b.amount - a.amount);
+                console.log(newDebits);
+                setDebits([...newDebits]);
+                break;
+            case 'low to high':
+                console.log(debits);
+                newDebits = debits.sort((a, b) => b.amount - a.amount);
+                setDebits([...newDebits]);
+                console.log(newDebits);
+                break;
+            default:
+                break;
+        }
+    }
+
+
+    if (debits.length === 0 || transactions.length === 0) {
+        return (
+            <>
+                <Loading />
+            </>
+        )
+    }
+
     return (
         <div className="UserPage">
             <div className="current-container">
                 <h1>Your Current:</h1>
-                <h2>{current}</h2>
+                <h2>{accounts[accountIndex].balance}</h2>
             </div>
             <div className="transactions-container">
                 <h1>Your Transactions:</h1>
+                <select onChange={changeAccounts}>
+                    <option value={null}>Select Account</option>
+                    {accounts.map((account, index) => <option key={account.account_id} value={index}>{index}</option>)}
+                </select>
                 <select onChange={filterTransactions}>
                     <option value={null}>select</option>
                     <option value={'high to low'}>high to low</option>
@@ -129,6 +182,12 @@ function UserPage() {
                 </table>
             </div>
             <div className="credit-container">
+                <h1>Your Credit Debits:</h1>
+                <select onChange={filterDebits}>
+                    <option value={null}>select</option>
+                    <option value={'high to low'}>high to low</option>
+                    <option value={'low to high'}>low to high</option>
+                </select>
                 <table>
                     <thead>
                         <tr>

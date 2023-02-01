@@ -8,40 +8,81 @@ import RegisterOne from './pages/RegisterOne';
 import RegisterTwo from './pages/RegisterTwo';
 import UserPage from './pages/UserPage';
 import AdminPage from './pages/adminPage';
+import NavBar from './pages/components/Navbar';
+import ErrorPage from './pages/components/ErrorPage';
 import Statistics from './pages/statistics';
 import Transfer from './pages/transfer';
 export const AppContext = createContext();
 
 
 function App() {
-  // const navigate = useNavigate();
-  // const location = useLocation();
-  // const user_id = location.pathname.split("/")[1];
+  const navigate = useNavigate();
+  const location = useLocation();
+  const user_id = location.pathname.split("/")[2];
+  const [existsUser, setExistsUser] = useState(false);
 
-  // useEffect(() => {
-  //   if (sessionStorage.getItem("activeUser")) {
-  //     logIn(sessionStorage.getItem("activeUser"));
-  //   } else {
-  //     navigate("/Home");
-  //   }
-  // }, [user_id]);
+  const getCookies = (cname) => {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
 
-  // function logIn(userId) {
-  //   sessionStorage.setItem("activeUser", userId);
-  //   if (user_id != userId) {
-  //     navigate(`/UserPage/${userId}`);
-  //   }
-  // }
-  // function logOut() {
-  //   sessionStorage.removeItem("activeUser");
-  //   navigate("/Home");
-  // }
+  const authorization = async (func) => {
+    const res = await fetch(`http://localhost:8000/${user_id}/authorization`, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      }
+    });
+    const data = await res.json();
+    if(data){
+      func();
+    } else {
+      navigate("/ErrorPage")
+    }
+  }
+
+  useEffect(() => {
+  }, []);
+
+  function logIn(data) {
+    if (data.token === undefined) {
+      document.cookie = `onlineUser=${data.existToken};expires=${data.expiration_date}`;
+    }
+    else {
+      document.cookie = `onlineUser=${data.token};expires=${data.expiration_date}`;
+    }
+    if (user_id != data.user_id) {
+      navigate(`/UserPage/${data.user_id}`);
+    }
+  }
+
+  function logOut() {
+    document.cookie = "onlineUser='';expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    navigate("/Home");
+  }
+
   return (
-    <AppContext.Provider value={'hi'}>
+    <AppContext.Provider value={{ logIn, logOut, authorization }}>
       <Routes>
         <Route index element={<Navigate replace to="/Home" />}></Route>
         <Route path="/Home" element={<Home />}></Route>
-        <Route path='/UserPage/:user_id' element={<UserPage />}></Route>
+        <Route path="/ErrorPage" element={<ErrorPage />}></Route>
+        <Route path='/UserPage/:user_id' element={<NavBar />}>
+          <Route index element={<UserPage />}></Route>
+        </Route>
         <Route path='/AdminPage/:user_id' element={<AdminPage />}></Route>
         <Route path="/Login" element={<Login />}></Route>
         <Route path="/Register" >

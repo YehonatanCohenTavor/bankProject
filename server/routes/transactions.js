@@ -10,9 +10,11 @@ router.get('/', function (req, res, next) {
   })
 });
 
-router.get('/:user_id', function (req, res, next) {
-  const user_id = req.params.user_id;
-  database.query(`SELECT * FROM transaction WHERE sender_account_id = ${user_id} OR reciever_account_id= ${user_id}`, (err, result) => {
+router.get('/:account_id/limit', (req, res, next) => {
+  const account = req.params.account_id;
+  const limit = req.query.limit;
+  let sql = `SELECT * FROM transaction WHERE sender_account_id = ${account} OR reciever_account_id= ${account} ORDER BY transaction_id DESC LIMIT ${limit ? limit : 5};`;
+  database.query(sql, (err, result) => {
     if (err) res.status(503).json(err);
     res.status(200).json(result);
   })
@@ -23,6 +25,14 @@ router.get(`/aggregate/total`, (req, res) => {
     if (err) return res.status(503).json(err);
     res.status(200).json(result[0]);
   });
+})
+
+router.get('/:account_id', function (req, res, next) {
+  const account_id = req.params.account_id;
+  database.query(`SELECT * FROM transaction WHERE sender_account_id = ${account_id} OR reciever_account_id= ${account_id}`, (err, result) => {
+    if (err) res.status(503).json(err);
+    res.status(200).json(result);
+  })
 })
 
 router.post('/', function (req, res, next) {
@@ -114,11 +124,3 @@ router.put('/:transaction_id', function (req, res, next) {
 
 module.exports = router;
 
-
-// {
-// 	"sender_account_id":2,
-// 	"reciever_account_id":5,
-// 	"credit_id":null,
-// 	"amount":200,
-// 	"description":"heeedddddeello"
-// }
