@@ -54,7 +54,7 @@ function RegisterTwo() {
                     setError(`ID number: ${location.state.identity_number} is already linked to another user.`)
                     break;
                 default:
-                    navigate(`/userpage/${data}`);
+                    navigate(`/login`);
             }
         }
     }

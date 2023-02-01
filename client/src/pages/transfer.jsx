@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
+import { AppContext } from "../App";
 
 function Transfer() {
     const [formState, setFormState] = useState({
@@ -11,16 +12,20 @@ function Transfer() {
     const [select, setSelect] = useState([]);
     const location = useLocation();
     const user_id = location.pathname.split('/')[2];
+    const { authorization } = useContext(AppContext);
 
-    useEffect(() => {
-        fetch(`http://localhost:8000/accounts/${user_id?user_id:3}/accounts`)
+    const fetchAccounts = () => {
+        fetch(`http://localhost:8000/accounts/${user_id ? user_id : 3}/accounts`)
             .then(response => response.json())
             .then(data => {
                 setSelect([...data]);
                 setFormState(prev => ({ ...prev, sender_account_id: data[0].account_id }))
             })
-    },[])
+    }
 
+    useEffect(() => {
+        authorization(fetchAccounts);
+    }, [])
 
     const handleSubmit = (e) => {
         e.preventDefault();
