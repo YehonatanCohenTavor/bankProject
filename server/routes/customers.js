@@ -34,15 +34,15 @@ router.get('/:user_id/customerData', function (req, res, next) {
 });
 
 
-router.put('/:customer_id',validateUpdate, (req, res) => {
+router.put('/:user_id',validateUpdate, (req, res) => {
     let sql = '';
     for (let key in req.body) {
         sql+=`${key}='${req.body[key]}',`
     }
     sql = sql.slice(0, sql.length - 1);
-    database.query(`UPDATE customer SET ${sql} WHERE customer_id=${req.params.customer_id}`, (err, result) => {
+    database.query(`UPDATE customer SET ${sql} WHERE user_id=${req.params.user_id}`, (err, result) => {
         if (err) res.status(503).json(err);
-        database.query(`SELECT email,address,phone FROM customer WHERE customer_id=${req.params.customer_id}`, (err, result) => {
+        database.query(`SELECT email,address,phone FROM customer WHERE user_id=${req.params.user_id}`, (err, result) => {
             if (err) res.status(503).json(err);
             return res.status(200).json(result[0]);
         })
