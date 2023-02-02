@@ -4,7 +4,7 @@
 }
 
 .UserInfo form li {
-    margin: 8vh;
+    margin: 5vh;
 }
 
 .UserInfo>h1 {
@@ -24,11 +24,15 @@
 }
 
 .UserInfo h1 {
+    text-align: center;
     font-size: 36px;
     margin-bottom: 20px;
 }
 
 .UserInfo ul {
+    width:100%;
+    display: flex;
+    flex-direction: column;
     list-style: none;
     padding: 0;
 }
@@ -36,9 +40,6 @@
 .UserInfo li {
     /* margin: 10px 0; */
     font-size: 18px;
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
 }
 
 .UserInfo button {
@@ -64,9 +65,10 @@
     justify-content: space-around
 }
 
-.UserInfo .speciel{
+.UserInfo .special{
+    width:80%;
     display: flex;
-    justify-content: space-around
+    justify-content: space-between;
 }
 
 @media screen and (max-width: 768px) {
