@@ -70,7 +70,7 @@ function AdminPage() {
         <div className='adminPage'>
             <div className='links'>
                 <NavLink to={`/AdminPage/${user_id}/stats`}>Statistics</NavLink>
-                <NavLink onClick={(e) => {e.preventDefault(); document.cookie = "onlineUser=;expires=Thu, 01 Jan 1970 00:00:00 GMT";}} to='/Home'>Log out</NavLink> 
+                <NavLink to='/Home'>Log out</NavLink> 
             </div>
             <h2>Transactions</h2>
             <select onChange={handleChange} value={filter}>

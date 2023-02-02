@@ -58,22 +58,6 @@ router.post('/', function (req, res, next) {
 
   const { sender_account_id,reciever_account_id, amount, description } = req.body;
 
-  // database.beginTransaction(function (err) {
-  //   if (err) {
-  //     throw err;
-  //   }
-  // database.query(`UPDATE account SET balance = balance - ${amount} WHERE account_id = ${sender_account_id}`, function (error, results) {
-  //   if (error) {
-  //     return database.rollback(function () {
-  //       throw error;
-  //     });
-  //   }
-  //   database.query(`UPDATE account SET balance = balance + ${amount} WHERE account_id = ${reciever_account_id}`, function (error, results) {
-  //     if (error) {
-  //       return database.rollback(function () {
-  //         throw error;
-  //       });
-  //     }
   let sql = `INSERT INTO transaction (sender_account_id, reciever_account_id, amount, description) 
              VALUES(${sender_account_id}, ${reciever_account_id}, ${amount}, '${description}')`
   database.query(sql, function (err, result) {
