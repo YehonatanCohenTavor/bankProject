@@ -194,8 +194,8 @@ function UserPage () {
                 <td>{account.balance}</td>
                 <td>
                   {account.deleted
-                    ? 'No'
-                    : 'Account is blocked, please call us as soon as possible'}
+                    ? 'Account is blocked, please call us as soon as possible'
+                     :'No'}
                 </td>
               </tr>
             </tbody>
